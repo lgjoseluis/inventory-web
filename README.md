@@ -66,3 +66,5 @@ ng g m modules/dashboard/dashboard --flat
 ng g c modules/dashboard/pages/dashboard --flat
 ng g c modules/dashboard/components/home
 
+ng g m modules/shared/shared --flat
+ng g c modules/shared/components/sidenav
