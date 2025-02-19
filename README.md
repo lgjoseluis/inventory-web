@@ -62,3 +62,7 @@ For more information on using the Angular CLI, including detailed command refere
 ng new inventory-web --no standalone
 
 ng g m modules/dashboard/dashboard --flat
+
+ng g c modules/dashboard/pages/dashboard --flat
+ng g c modules/dashboard/components/home
+
