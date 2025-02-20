@@ -68,3 +68,6 @@ ng g c modules/dashboard/components/home
 
 ng g m modules/shared/shared --flat
 ng g c modules/shared/components/sidenav
+
+ng add @angular/material
+ng g m modules/shared/material --flat
