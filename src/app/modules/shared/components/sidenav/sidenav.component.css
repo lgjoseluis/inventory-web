@@ -1,0 +1,23 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+ul li {
+    list-style: none;
+    align-items: center;
+}
+
+div ul {
+    display: flex;
+    align-items: center;
+}
+
+.right {
+    margin-left: auto;
+}
