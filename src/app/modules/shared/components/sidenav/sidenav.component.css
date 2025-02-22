@@ -8,6 +8,19 @@
     right: 0;
 }
 
+.sidenav-container{
+    flex: 1;
+}
+
+.is-mobile .sidenav-container{
+    flex: 1 0 auto;
+}
+
+.is-mobile .dashboard-toolbar{
+    position: fixed;
+    z-index: 2;
+}
+
 ul li {
     list-style: none;
     align-items: center;
@@ -20,4 +33,13 @@ div ul {
 
 .right {
     margin-left: auto;
+}
+
+.profile-card{
+    text-align: center;
+    padding: 0 10px 10px 10px;
+}
+
+.header{
+    margin-top: 20px;
 }
