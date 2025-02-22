@@ -71,3 +71,6 @@ ng g c modules/shared/components/sidenav
 
 ng add @angular/material
 ng g m modules/shared/material --flat
+
+ng g m modules/category/category --flat
+ng g c modules/category/components/category
