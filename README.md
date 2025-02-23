@@ -74,3 +74,6 @@ ng g m modules/shared/material --flat
 
 ng g m modules/category/category --flat
 ng g c modules/category/components/category
+
+ng g s modules/shared/services/category
+ng g s modules/shared/services/config
