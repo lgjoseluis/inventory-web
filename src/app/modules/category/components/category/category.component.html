@@ -14,7 +14,7 @@
         </div>
         
         <div class="row">
-            <div class="col-md-3 offset-md-9">
+            <div class="col-md-3 offset-md-9 mb-2">
                 <button mat-raised-button color="primary">
                     Agregar categoría
                 </button>
@@ -46,7 +46,7 @@
                     <button mat-icon-button color="accent">
                         <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="accent">
+                    <button mat-icon-button color="warn">
                         <mat-icon aria-label="Delete">delete</mat-icon>
                     </button>
                 </td>
@@ -57,5 +57,14 @@
         </table>
     </mat-card-content>
 
-    <mat-card-footer>*</mat-card-footer>
+    <mat-card-actions>
+        <div class="container-fluid">
+            <mat-paginator [length]="dataSource.data.length"
+                [pageSize]="10"                
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page"
+                showFirstLastButtons>                
+            </mat-paginator>
+        </div>
+    </mat-card-actions>    
 </mat-card>
