@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CategoryService } from '../../../shared/services/category.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCategoryComponent } from '../add-category/add-category.component';
 
 @Component({
   selector: 'app-category',
@@ -9,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './category.component.css',
 })
 export class CategoryComponent implements OnInit{
+  readonly dialog = inject(MatDialog);
   private service: CategoryService = inject(CategoryService);
   displayColumns:string[]=['id', 'name', 'description', 'actions'];
   dataSource = new MatTableDataSource<Category>();
@@ -40,6 +43,19 @@ export class CategoryComponent implements OnInit{
 
       this.dataSource = new MatTableDataSource<Category>(dataCategory);
     }
+  }  
+
+  openCategoryDialog(){
+    const dialogRef = this.dialog.open( AddCategoryComponent, {
+      width: "450px",
+      //data: {name: this.name(), animal: this.animal()},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {      
+      if (result !== undefined) {
+        //this.animal.set(result);
+      }
+    });
   }  
 }
 

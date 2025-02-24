@@ -77,3 +77,5 @@ ng g c modules/category/components/category
 
 ng g s modules/shared/services/category
 ng g s modules/shared/services/config
+
+ng g c modules/category/components/AddCategory
