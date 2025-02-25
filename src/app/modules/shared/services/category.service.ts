@@ -39,4 +39,10 @@ export class CategoryService {
 
     return this.http.delete(endpoint);
   }
+
+  findCategoryById(id:number){
+    const endpoint = `${apiUrl}/v1/categories/${id}`;
+
+    return this.http.get(endpoint);
+  }
 }

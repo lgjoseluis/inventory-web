@@ -42,10 +42,10 @@ export class CategoryComponent implements OnInit{
 
       listCategory.forEach((element:Category) => {
         dataCategory.push(element);
-      });
-
-      this.dataSource = new MatTableDataSource<Category>(dataCategory);
+      });      
     }
+
+    this.dataSource = new MatTableDataSource<Category>(dataCategory);
   }  
 
   processDeleteCategory(item: Category){
@@ -88,6 +88,22 @@ export class CategoryComponent implements OnInit{
         this.processDeleteCategory(item);
       }
     });
+  }
+
+  search(term:string){
+    if(term.length == 0){
+      this.getCategories();
+    }else{
+      this.service.findCategoryById(Number(term)).subscribe({
+        next: (response : any) =>{
+          this.processResponseCategories(response);
+        },
+        error: (error: any)=>{
+          console.log('Error', "Error al recuperar la categoría");
+          this.processResponseCategories(error.error);
+        }
+      });
+    }
   }
 
   openCategoryDialog(){
