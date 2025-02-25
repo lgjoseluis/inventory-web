@@ -47,6 +47,22 @@ export class CategoryComponent implements OnInit{
     }
   }  
 
+  edit(item:any){
+    const dialogRef = this.dialog.open( AddCategoryComponent, {
+      width: "450px",
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {      
+      if (result === 0) {
+        this.openSnackBar("Categoría actualizada", "Success");
+        this.getCategories();
+      }else if(result===1){
+        this.openSnackBar("Error al actualziar la categoría", "Error");
+      }
+    });
+  }
+
   openCategoryDialog(){
     const dialogRef = this.dialog.open( AddCategoryComponent, {
       width: "450px",

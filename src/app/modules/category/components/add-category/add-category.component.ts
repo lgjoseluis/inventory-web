@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../shared/services/category.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Category } from '../category/category.component';
 
 @Component({
   selector: 'app-add-category',
@@ -11,16 +12,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddCategoryComponent implements OnInit{    
   readonly dialogRef = inject(MatDialogRef<AddCategoryComponent>);
+  private data = inject<Category>(MAT_DIALOG_DATA);
   private fb = inject(FormBuilder);
   private service = inject(CategoryService);
   
-
+  public statusForm = "Actualizar"
   public categoryForm!: FormGroup;
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    if(this.data===null){
+      this.data = {id:0, name:"", description:""};
+      this.statusForm ="Agregar";
+    }
+
     this.categoryForm = this.fb.group({
-      name:['', Validators.required],
-      description:['', Validators.required]
+      name:[this.data.name, Validators.required],
+      description:[this.data.description, Validators.required]
     });
   }
 
@@ -30,17 +37,27 @@ export class AddCategoryComponent implements OnInit{
       description: this.categoryForm.get('description')?.value
     };
 
-    this.service.saveCategory(data).subscribe({
-      next: (response : any) =>{
-        this.dialogRef.close(0);
-      },
-      error: (error: any)=>{
-        console.log('Error',error);
-        this.dialogRef.close(1);
-      }
-    });
-
-
+    if(this.data.id ===0){
+      this.service.saveCategory(data).subscribe({
+        next: (response : any) =>{
+          this.dialogRef.close(0);
+        },
+        error: (error: any)=>{
+          console.log('Error',error);
+          this.dialogRef.close(1);
+        }
+      });
+    }else{
+      this.service.updateCategory(data, this.data.id).subscribe({
+        next: (response : any) =>{
+          this.dialogRef.close(0);
+        },
+        error: (error: any)=>{
+          console.log('Error',error);
+          this.dialogRef.close(1);
+        }
+      });
+    }    
   }
 
   onCancel(){
