@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Confirmación</h1>
+<div mat-dialog-content>
+    <p>{{message}}</p>
+</div>
+<div mat-dialog-actions>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 offset-7">
+                <button mat-raised-button (click)="onNoClick()">No</button>
+            </div>
+            <div class="col-2">
+                <button mat-raised-button cdkFocusInitial (click)="onYesClick()">Si</button>
+            </div>            
+        </div>    
+    </div>    
+</div>

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-category',
@@ -47,6 +48,19 @@ export class CategoryComponent implements OnInit{
     }
   }  
 
+  processDeleteCategory(item: Category){
+    this.service.deleteCategory(item.id).subscribe({
+      next: (response : any) =>{
+        this.openSnackBar(`Categoría <<${item.name}>> eliminada`, "Success");
+        this.getCategories();        
+      },
+      error: (error: any)=>{
+        console.log('Error',error);
+        this.openSnackBar("Error al eliminar la categoría", "Error");
+      }
+    });    
+  }
+
   edit(item:any){
     const dialogRef = this.dialog.open( AddCategoryComponent, {
       width: "450px",
@@ -59,6 +73,19 @@ export class CategoryComponent implements OnInit{
         this.getCategories();
       }else if(result===1){
         this.openSnackBar("Error al actualziar la categoría", "Error");
+      }
+    });
+  }
+
+  delete(item:Category){
+    const dialogRef = this.dialog.open( ConfirmComponent, {
+      width: "450px",
+      data: `¿Eliminar la categoría <<${item.name}>>?`
+    });
+
+    dialogRef.afterClosed().subscribe(result => {      
+      if (result === "S") {
+        this.processDeleteCategory(item);
       }
     });
   }
