@@ -21,4 +21,10 @@ export class CategoryService {
 
     return this.http.get(endpoint);
   }
+
+  saveCategory(body:any){
+    const endpoint = `${apiUrl}/v1/categories`;
+
+    return this.http.post(endpoint, body);
+  }
 }

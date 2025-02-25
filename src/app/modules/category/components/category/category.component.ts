@@ -3,6 +3,7 @@ import { CategoryService } from '../../../shared/services/category.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from '../add-category/add-category.component';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-category',
@@ -11,7 +12,8 @@ import { AddCategoryComponent } from '../add-category/add-category.component';
   styleUrl: './category.component.css',
 })
 export class CategoryComponent implements OnInit{
-  readonly dialog = inject(MatDialog);
+  readonly dialog:MatDialog = inject(MatDialog);
+  private snackBar:MatSnackBar = inject(MatSnackBar);
   private service: CategoryService = inject(CategoryService);
   displayColumns:string[]=['id', 'name', 'description', 'actions'];
   dataSource = new MatTableDataSource<Category>();
@@ -52,11 +54,20 @@ export class CategoryComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {      
-      if (result !== undefined) {
-        //this.animal.set(result);
+      if (result === 0) {
+        this.openSnackBar("Categoría agregada", "Success");
+        this.getCategories();
+      }else if(result===1){
+        this.openSnackBar("Error al guardar la categoría", "Error");
       }
     });
   }  
+
+  openSnackBar(message:string, action:string):MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
 }
 
 export interface Category{

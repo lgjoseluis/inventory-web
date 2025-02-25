@@ -1,1 +1,36 @@
-<p>add-category works!</p>
+<h2 mat-dialog-title>Nueva categoría</h2>
+<mat-dialog-content>
+    <div class="container-fluid">
+        <form [formGroup]="categoryForm">
+            <div class="row">                
+                <mat-form-field>
+                    <mat-label>Nombre de la categoría</mat-label>
+                    <input matInput required formControlName="name">
+                </mat-form-field>
+            </div>        
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Descripción de la categoría</mat-label>
+                    <textarea matInput required formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+    </form>
+</div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <button mat-button (click)="onSave()" [disabled]="categoryForm.invalid">
+                    <mat-icon>save</mat-icon> Guardar
+                </button>
+            </div>
+            <div class="col-md-3 offset-md-1">
+                <button mat-button (click)="onCancel()">
+                    <mat-icon>cancel</mat-icon> Cancelar
+                </button>
+            </div>    
+        </div>
+    </div>
+</mat-dialog-actions>
