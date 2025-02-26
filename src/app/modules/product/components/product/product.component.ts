@@ -2,6 +2,9 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from '../../../shared/services/product.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { SaveProductComponent } from '../save-product/save-product.component';
 
 @Component({
   selector: 'app-product',
@@ -10,7 +13,9 @@ import { ProductService } from '../../../shared/services/product.service';
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit{
-  private service = inject(ProductService)
+  private service = inject(ProductService);
+  readonly dialog:MatDialog = inject(MatDialog);
+  private snackBar:MatSnackBar = inject(MatSnackBar);
   displayColumns:string[]=['id', 'name', 'price', 'account', 'category', 'picture' ,'actions'];
   dataSource = new MatTableDataSource<Product>();
 
@@ -35,7 +40,20 @@ export class ProductComponent implements OnInit{
   edit(item:Product){}
 
   delete(item:Product){}
-  
+
+  openProductDialog(){
+    const dialogRef = this.dialog.open( SaveProductComponent);
+    
+        dialogRef.afterClosed().subscribe(result => {      
+          if (result === 0) {
+            this.openSnackBar("Producto agregado", "Success");
+            this.getProducts();
+          }else if(result===1){
+            this.openSnackBar("Error al guardar producto", "Error");
+          }
+        });
+  }
+
   search(name:string){
     if(name.length == 0){
       this.getProducts();
@@ -68,6 +86,12 @@ export class ProductComponent implements OnInit{
       this.dataSource = new MatTableDataSource<Product>(dataProduct);
       this.dataSource.paginator = this.paginator;
     }
+
+    openSnackBar(message:string, action:string):MatSnackBarRef<SimpleSnackBar>{
+        return this.snackBar.open(message, action, {
+          duration: 2000
+        });
+      }
 }
 
 

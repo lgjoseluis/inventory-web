@@ -22,4 +22,10 @@ export class ProductService {
 
     return this.http.get(endpoint);
   }
+
+  saveProduct(body:any){
+    const endpoint = `${apiUrl}/v1/products`;
+
+    return this.http.post(endpoint, body);
+  }
 }
