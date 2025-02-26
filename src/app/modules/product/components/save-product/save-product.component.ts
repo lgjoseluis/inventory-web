@@ -40,7 +40,25 @@ export class SaveProductComponent implements OnInit{
     }    
   }
 
-  onSave(){}
+  onSave(){
+    const formData = new FormData();
+
+    formData.append('name', this.productForm.get('name')?.value);
+    formData.append('price', this.productForm.get('price')?.value);
+    formData.append('account', this.productForm.get('account')?.value);
+    formData.append('categoryId', this.productForm.get('category')?.value);
+    formData.append('picture', this.selectedFile, this.selectedFile.name);
+
+    this.service.saveProduct(formData).subscribe({
+      next: (response : any) =>{
+        this.dialogRef.close(0);
+      },
+      error: (error: any)=>{
+        console.log('Error', "Error al guardar el producto");
+        this.dialogRef.close(1);
+      }
+    });
+  }
 
   onCancel(){
     this.dialogRef.close(2);

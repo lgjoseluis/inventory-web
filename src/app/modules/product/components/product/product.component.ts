@@ -48,7 +48,7 @@ export class ProductComponent implements OnInit{
     
         dialogRef.afterClosed().subscribe(result => {      
           if (result === 0) {
-            this.openSnackBar("Producto agregado", "Success");
+            this.openSnackBar("Producto guardado", "Success");
             this.getProducts();
           }else if(result===1){
             this.openSnackBar("Error al guardar producto", "Error");
