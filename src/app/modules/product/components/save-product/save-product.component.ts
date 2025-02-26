@@ -15,12 +15,14 @@ export class SaveProductComponent implements OnInit{
   readonly dialogRef = inject(MatDialogRef<SaveProductComponent>);
   private data = inject<Product>(MAT_DIALOG_DATA);
   private fb = inject(FormBuilder);
+  private selectedFile:any;
   private service = inject(ProductService);
   private cateService = inject(CategoryService)
 
   public statusForm = "Crear"
   public productForm!: FormGroup;
   public categories:Category[] = [];
+  public fileName:string="";
 
   ngOnInit(): void { 
     this.getCategories();
@@ -42,6 +44,14 @@ export class SaveProductComponent implements OnInit{
 
   onCancel(){
     this.dialogRef.close(2);
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      this.selectedFile = file;
+    }
   }
 
   getCategories(){
