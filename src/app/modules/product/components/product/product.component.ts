@@ -42,7 +42,9 @@ export class ProductComponent implements OnInit{
   delete(item:Product){}
 
   openProductDialog(){
-    const dialogRef = this.dialog.open( SaveProductComponent);
+    const dialogRef = this.dialog.open( SaveProductComponent, {
+      data: {id: 0, name:'', price:'', account:'', category:'', picture:''}
+    });
     
         dialogRef.afterClosed().subscribe(result => {      
           if (result === 0) {
