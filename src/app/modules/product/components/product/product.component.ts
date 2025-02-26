@@ -35,6 +35,22 @@ export class ProductComponent implements OnInit{
   edit(item:Product){}
 
   delete(item:Product){}
+  
+  search(name:string){
+    if(name.length == 0){
+      this.getProducts();
+    }else{
+      this.service.getProductByName(name).subscribe({
+        next: (response : any) =>{
+          this.processResponseProducts(response);
+        },
+        error: (error: any)=>{
+          console.log('Error', "Error al recuperar la categoría");
+          this.processResponseProducts(error.error);
+        }
+      });
+    }
+  }
 
   processResponseProducts(response:any){
       const dataProduct: Product[]=[];

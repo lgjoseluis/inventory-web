@@ -1,5 +1,19 @@
 <mat-card>
-    <mat-card-header></mat-card-header>
+    <mat-card-header>
+        <div class="container-fluid">
+        
+            <mat-card-title>Lista de productos</mat-card-title>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field hintLabel="Buscar producto" appearance="fill">
+                        <mat-label>Nombre del producto</mat-label>
+                        <input matInput #input (keyup)="search(input.value)">
+                    </mat-form-field>
+                </div>                        
+            </div>
+        </div>
+    </mat-card-header>
 
     <mat-card-content>
         <table mat-table [dataSource]="dataSource">
@@ -31,7 +45,7 @@
             <ng-container matColumnDef="picture">
                 <th mat-header-cell *matHeaderCellDef>Imagen</th>
                 <td mat-cell *matCellDef="let element">
-                    <img [src]="element.picture" alt="" class="img-thumbnail">
+                    <img [src]="element.picture" alt="" width="100" class="img-thumbnail">
                 </td>
             </ng-container>
 

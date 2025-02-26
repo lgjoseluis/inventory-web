@@ -16,4 +16,10 @@ export class ProductService {
 
     return this.http.get(endpoint);
   }
+
+  getProductByName(name:string){
+    const endpoint = `${apiUrl}/v1/products/search?name=${name}`;
+
+    return this.http.get(endpoint);
+  }
 }
