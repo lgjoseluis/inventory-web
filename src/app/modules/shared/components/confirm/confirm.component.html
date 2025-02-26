@@ -2,14 +2,18 @@
 <div mat-dialog-content>
     <p>{{message}}</p>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="onNoClick()">No</button>
+
+    <button mat-raised-button cdkFocusInitial (click)="onYesClick()">Si</button>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 offset-7">
-                <button mat-raised-button (click)="onNoClick()">No</button>
+                
             </div>
             <div class="col-2">
-                <button mat-raised-button cdkFocusInitial (click)="onYesClick()">Si</button>
+                
             </div>            
         </div>    
     </div>    

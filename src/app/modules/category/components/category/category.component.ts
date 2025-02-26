@@ -63,7 +63,7 @@ export class CategoryComponent implements OnInit{
 
   edit(item:any){
     const dialogRef = this.dialog.open( AddCategoryComponent, {
-      width: "450px",
+      //width: "450px",
       data: item
     });
 
@@ -78,8 +78,7 @@ export class CategoryComponent implements OnInit{
   }
 
   delete(item:Category){
-    const dialogRef = this.dialog.open( ConfirmComponent, {
-      width: "450px",
+    const dialogRef = this.dialog.open( ConfirmComponent, {      
       data: `¿Eliminar la categoría <<${item.name}>>?`
     });
 
@@ -108,8 +107,7 @@ export class CategoryComponent implements OnInit{
 
   openCategoryDialog(){
     const dialogRef = this.dialog.open( AddCategoryComponent, {
-      width: "450px",
-      //data: {name: this.name(), animal: this.animal()},
+      //width: "450px"
     });
 
     dialogRef.afterClosed().subscribe(result => {      
