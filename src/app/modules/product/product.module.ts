@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../shared/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductComponent } from './components/product/product.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ProductComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,

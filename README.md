@@ -84,3 +84,5 @@ ng g c modules/shared/components/confirm --module shared.module
 
 [Productos]
 ng g m modules/product/product --flat
+
+ng g c modules/product/components/product
