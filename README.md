@@ -88,3 +88,5 @@ ng g m modules/product/product --flat
 ng g c modules/product/components/product
 
 ng g s modules/shared/services/product
+
+ng g c modules/product/components/SaveProduct
