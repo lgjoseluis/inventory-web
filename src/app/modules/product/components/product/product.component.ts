@@ -5,6 +5,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { SaveProductComponent } from '../save-product/save-product.component';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-product',
@@ -52,7 +53,17 @@ export class ProductComponent implements OnInit{
         });
   }
 
-  delete(item:Product){}
+  delete(item:Product){
+    const dialogRef = this.dialog.open( ConfirmComponent, {      
+          data: `¿Eliminar producto <<${item.name}>>?`
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {      
+          if (result === "S") {
+            this.processDeleteCategory(item);
+          }
+        });
+  }
 
   openProductDialog(){
     const dialogRef = this.dialog.open( SaveProductComponent, {
@@ -100,6 +111,19 @@ export class ProductComponent implements OnInit{
       this.dataSource = new MatTableDataSource<Product>(dataProduct);
       this.dataSource.paginator = this.paginator;
     }
+
+    processDeleteCategory(item: Product){
+        this.service.deleteProduct(item.id).subscribe({
+          next: (response : any) =>{
+            this.openSnackBar(`Producto <<${item.name}>> eliminado`, "Success");
+            this.getProducts();        
+          },
+          error: (error: any)=>{
+            console.log('Error',error);
+            this.openSnackBar("Error al eliminar el producto", "Error");
+          }
+        });    
+      }
 
     openSnackBar(message:string, action:string):MatSnackBarRef<SimpleSnackBar>{
         return this.snackBar.open(message, action, {
