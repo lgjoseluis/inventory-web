@@ -58,20 +58,23 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## Comandos utilizados
+## Comandos utilizados - Angular
 ng new inventory-web --no standalone
 
+### Dashboard
 ng g m modules/dashboard/dashboard --flat
 
 ng g c modules/dashboard/pages/dashboard --flat
 ng g c modules/dashboard/components/home
 
+### Shared
 ng g m modules/shared/shared --flat
 ng g c modules/shared/components/sidenav
 
 ng add @angular/material
 ng g m modules/shared/material --flat
 
+### Categorías
 ng g m modules/category/category --flat
 ng g c modules/category/components/category
 
@@ -82,7 +85,7 @@ ng g c modules/category/components/AddCategory
 
 ng g c modules/shared/components/confirm --module shared.module
 
-[Productos]
+### Productos
 ng g m modules/product/product --flat
 
 ng g c modules/product/components/product
@@ -90,3 +93,10 @@ ng g c modules/product/components/product
 ng g s modules/shared/services/product
 
 ng g c modules/product/components/SaveProduct
+
+## Comandos utilizados - Docker
+
+### MySQL
+docker pull mysql:8.0.41
+
+docker run -p 3306:3306 --name docker-mysql -e MYSQL_ROOT_PASSWORD=R00tjl81* -e MYSQL_DATA_BASE=db_inventory -d mysql:8.0.41
