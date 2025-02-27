@@ -37,7 +37,20 @@ export class ProductComponent implements OnInit{
     });
   }
 
-  edit(item:Product){}
+  edit(item:Product){
+    const dialogRef = this.dialog.open( SaveProductComponent, {
+          data: item
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {      
+          if (result === 0) {
+            this.openSnackBar("Producto actualizado", "Success");
+            this.getProducts();
+          }else if(result===1){
+            this.openSnackBar("Error al actualizar el producto", "Error");
+          }
+        });
+  }
 
   delete(item:Product){}
 
@@ -79,7 +92,6 @@ export class ProductComponent implements OnInit{
         let listProduct = response.productResponse.products;
   
         listProduct.forEach((element:Product) => {
-          element.category = element.category.name;
           element.picture = 'data:image/jpeg;base64,' + element.picture;
           dataProduct.push(element);
         });      

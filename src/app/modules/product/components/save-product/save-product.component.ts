@@ -25,19 +25,21 @@ export class SaveProductComponent implements OnInit{
   public fileName:string="";
 
   ngOnInit(): void { 
+    let categoryId:number= 0
     this.getCategories();
+    
+    if(this.data.id!==0){
+      this.statusForm = 'Actualizar';
+      categoryId = this.data.category.id;
+    }
 
     this.productForm = this.fb.group({
           name:[this.data.name, Validators.required],
           price:[this.data.price, Validators.required],
           account:[this.data.account, Validators.required],
-          category:[this.data.category, Validators.required],
-          picture:[this.data.picture, Validators.required]
+          category:[categoryId, Validators.required],
+          picture:['', Validators.required]
         });
-
-    if(this.data.id===0){
-      this.statusForm = 'Actualizar'
-    }    
   }
 
   onSave(){
@@ -47,17 +49,32 @@ export class SaveProductComponent implements OnInit{
     formData.append('price', this.productForm.get('price')?.value);
     formData.append('account', this.productForm.get('account')?.value);
     formData.append('categoryId', this.productForm.get('category')?.value);
-    formData.append('picture', this.selectedFile, this.selectedFile.name);
 
-    this.service.saveProduct(formData).subscribe({
-      next: (response : any) =>{
-        this.dialogRef.close(0);
-      },
-      error: (error: any)=>{
-        console.log('Error', "Error al guardar el producto");
-        this.dialogRef.close(1);
-      }
-    });
+    if(this.selectedFile != null)
+      formData.append('picture', this.selectedFile, this.selectedFile.name);
+
+
+    if(this.data.id ===0){
+      this.service.saveProduct(formData).subscribe({
+        next: (response : any) =>{
+          this.dialogRef.close(0);
+        },
+        error: (error: any)=>{
+          console.log('Error', "Error al guardar el producto");
+          this.dialogRef.close(1);
+        }
+      });
+    }else{
+      this.service.updateProduct(formData, this.data.id).subscribe({
+        next: (response : any) =>{
+          this.dialogRef.close(0);
+        },
+        error: (error: any)=>{
+          console.log('Error','Error al actualizar el producto');
+          this.dialogRef.close(1);
+        }
+      });
+    }
   }
 
   onCancel(){

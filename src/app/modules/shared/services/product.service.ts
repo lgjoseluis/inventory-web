@@ -28,4 +28,10 @@ export class ProductService {
 
     return this.http.post(endpoint, body);
   }
+
+  updateProduct(body:any, id:number){
+    const endpoint = `${apiUrl}/v1/products/${id}`;
+
+    return this.http.put(endpoint, body);
+  }
 }
