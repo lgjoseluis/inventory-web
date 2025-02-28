@@ -96,7 +96,24 @@ ng g c modules/product/components/SaveProduct
 
 ## Comandos utilizados - Docker
 
+### General
+docker network create inventory-net
+docker volume create mysql_data
+
 ### MySQL
+docker volume create mysql_data
+docker volume create keycloak_data
+
 docker pull mysql:8.0.41
 
-docker run -p 3306:3306 --name docker-mysql -e MYSQL_ROOT_PASSWORD=R00tjl81* -e MYSQL_DATA_BASE=db_inventory -d mysql:8.0.41
+docker run -p 3306:3306 --name docker-mysql --network inventory-net -e MYSQL_ROOT_PASSWORD=R00tjl81* -v mysql_data:/var/lib/mysql -d mysql:8.0.41 --default-authentication-plugin=caching_sha2_password --ssl=ON
+
+
+### Keycloack
+docker run --name keycloak-build -v keycloak_data:/opt/keycloak/data -e KC_DB=mysql -e KC_DB_URL=jdbc:mysql://docker-mysql:3306/keycloak_db?useSSL=true -e KC_DB_USERNAME=keycloak -e KC_DB_PASSWORD=Keycl0ak! quay.io/keycloak/keycloak:26.1.2 build
+
+docker run -d --name keycloak --network inventory-net -v keycloak_data:/opt/keycloak/data -v C:\certificados:/etc/x509/https -p 8443:8443 -p 9000:9000 -e KC_DB=mysql -e KC_DB_URL=jdbc:mysql://docker-mysql:3306/keycloak_db?useSSL=true -e KC_DB_USERNAME=keycloak -e KC_DB_PASSWORD=Keycl0ak! -e KC_HOSTNAME=localhost -e KC_HTTP_ENABLED=true -e KC_HTTP_PORT=8080 -e KC_HTTPS_PORT=8443 -e KC_HTTPS_CERTIFICATE_FILE=/etc/x509/https/tls.crt -e KC_HTTPS_CERTIFICATE_KEY_FILE=/etc/x509/https/tls.key -e KC_HEALTH_ENABLED=true -e KC_METRICS_ENABLED=true -e KC_LOG_LEVEL=INFO -e KC_CACHE=local -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=Admin123! quay.io/keycloak/keycloak:26.1.2 start
+
+------
+docker exec -it keycloak /opt/keycloak/bin/kc.sh bootstrap-admin user --username:env KEYCLOAK_ADMIN --password:env KEYCLOAK_ADMIN_PASSWORD
+docker exec -it keycloak /opt/keycloak/bin/kc.sh start bootstrap-admin user --username:env KEYCLOAK_ADMIN --password:env KEYCLOAK_ADMIN_PASSWORD
