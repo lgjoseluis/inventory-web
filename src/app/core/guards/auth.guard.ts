@@ -9,18 +9,19 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthServiceService, private router: Router) {}
 
-  async canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Promise<boolean | UrlTree> {
-    const authenticated = await this.authService.init(); // Asegurar autenticación
-    
-    if (!authenticated) {
-      console.warn('Usuario no autenticado. Redirigiendo al login...');
-      await this.authService.login(); // Redirige a Keycloak
-      return false;
-    }
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
+    console.log('Verificando autenticación...');
 
-    return true;
+    const isAuthenticated = await this.authService.init(); // Esperar inicialización
+
+    if (isAuthenticated && this.authService.getToken()) {
+      return true;
+    }     
+    
+    console.warn('Token no encontrado, redirigiendo al login...');
+
+    await this.authService.login(); // Redirige a Keycloak
+
+    return false;    
   }
 }

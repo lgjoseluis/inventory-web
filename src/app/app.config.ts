@@ -3,14 +3,24 @@ import { ConfigService } from "./modules/shared/services/config.service";
 import { provideHttpClient, withInterceptorsFromDi  } from "@angular/common/http";
 import { AuthServiceService } from "./modules/shared/services/auth-service.service";
 
-export function initializeKeycloak(keycloak: AuthServiceService): () => Promise<void> {
-  console.info('Initialize Keycloak....');
+export function initializeKeycloak(authService: AuthServiceService): () => Promise<void> {
+  /*return async () => {
+    const authenticated = await authService.init();
 
-  return () => keycloak.init().then(authenticated => {
     if (!authenticated) {
-      console.error('No autenticado en Keycloak');
+      console.warn('No autenticado en Keycloak, ir al login...');
+      await authService.login();
     }
-  });
+  };*/
+  return async () => {
+    try {
+      const authenticated = await authService.init();
+      
+      console.log('Keycloak inicializado:', authenticated);
+    } catch (error) {
+      console.error('Error en la inicialización de Keycloak:', error);
+    }
+  };
 }
 
 export function initializeConfig(configService: ConfigService): () => Promise<void> {

@@ -4,6 +4,7 @@ import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.mo
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+  { path: '**', redirectTo: 'dashboard' } // Captura rutas no encontradas
 ];
 
 @NgModule({
