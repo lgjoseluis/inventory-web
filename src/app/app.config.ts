@@ -4,14 +4,6 @@ import { provideHttpClient, withInterceptorsFromDi  } from "@angular/common/http
 import { AuthServiceService } from "./modules/shared/services/auth-service.service";
 
 export function initializeKeycloak(authService: AuthServiceService): () => Promise<void> {
-  /*return async () => {
-    const authenticated = await authService.init();
-
-    if (!authenticated) {
-      console.warn('No autenticado en Keycloak, ir al login...');
-      await authService.login();
-    }
-  };*/
   return async () => {
     try {
       const authenticated = await authService.init();

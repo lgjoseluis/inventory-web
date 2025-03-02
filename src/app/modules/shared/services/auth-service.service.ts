@@ -14,18 +14,6 @@ export class AuthServiceService {
     if (isPlatformBrowser(this.platformId)) {
       this.loadKeycloak(); // Asegurar carga antes de usar init()
     }
-
-    // if (isPlatformBrowser(this.platformId)) {
-    //   import('keycloak-js').then(Keycloak => {
-    //     this.keycloak = new Keycloak.default({
-    //       url: 'https://localhost:8443/', 
-    //       realm: 'inventory',
-    //       clientId: 'angular-client',
-    //     });
-    //   });
-
-    //   this.init();
-    // }
   }
 
   private async loadKeycloak(): Promise<void> {
@@ -83,7 +71,6 @@ export class AuthServiceService {
   }
 
   getUsername(): string | undefined {
-    console.log(this.keycloak?.tokenParsed);
     return this.keycloak?.tokenParsed?.preferred_username;
   }
 
