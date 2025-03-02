@@ -94,6 +94,12 @@ ng g s modules/shared/services/product
 
 ng g c modules/product/components/SaveProduct
 
+### Keycloak
+npm install keycloak-angular keycloak-js
+ng g s modules/shared/services/AuthService
+ng generate guard core/guards/auth
+
+
 ## Comandos utilizados - Docker
 
 ### General
