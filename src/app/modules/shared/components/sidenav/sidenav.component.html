@@ -12,12 +12,12 @@
             <mat-icon> help_outline </mat-icon>
           </button>
         </li>
-        <li>
+        <li *ngIf="isAuthenticate">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon> person_outline </mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>
               <span>Cerrar sesión</span>
             </button>
@@ -37,7 +37,7 @@
       <mat-nav-list> 
         <div class="profile-card">
             <div class="header">
-                <h2>lgjoseluis</h2>
+                <h2>{{userName}}</h2>
                 <h4>lgjoseluis</h4>
             </div>
         </div>

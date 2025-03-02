@@ -48,10 +48,6 @@ export class AuthServiceService {
     console.log('Keycloak service - init...');
 
     if (!this.keycloak) {
-      // console.warn('Keycloak no está disponible en el servidor');
-      // return false;
-
-      
       console.warn('keycloak service - esperando la inicialización de Keycloak...');
 
       await new Promise(resolve => setTimeout(resolve, 500)); // Esperar un poco si no está inicializado
@@ -87,7 +83,8 @@ export class AuthServiceService {
   }
 
   getUsername(): string | undefined {
-    return this.keycloak?.tokenParsed?.sub;
+    console.log(this.keycloak?.tokenParsed);
+    return this.keycloak?.tokenParsed?.preferred_username;
   }
 
   async login(): Promise<void> {
@@ -109,8 +106,27 @@ export class AuthServiceService {
       return;
     }
 
-    this.keycloak.logout({
-      redirectUri: window.location.origin // Redirige correctamente después del logout
-    });
+    this.keycloak.logout();
+  }
+
+  isAuthenticated(): boolean {
+    if (!this.keycloak) {
+      console.error('Keycloak service - keycloak no está inicializado.');
+      return false;
+    }
+
+    // Verificar si el token de Keycloak existe y está disponible
+    if (this.keycloak?.token) {
+      // Verifica si el token está disponible y no ha expirado
+      const expiresAt = this.keycloak.tokenParsed?.exp; // La fecha de expiración del token
+      
+      if (expiresAt) {
+        const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+        
+        return expiresAt > currentTime; // Si el token no ha expirado, el usuario está autenticado
+      }
+    }
+
+    return false; // Si no hay token o el token ha expirado
   }
 }
