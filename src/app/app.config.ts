@@ -1,9 +1,9 @@
 import { APP_INITIALIZER, ApplicationConfig } from "@angular/core";
 import { ConfigService } from "./modules/shared/services/config.service";
 import { provideHttpClient, withInterceptorsFromDi  } from "@angular/common/http";
-import { AuthServiceService } from "./modules/shared/services/auth-service.service";
+import { AuthService } from "./modules/shared/services/auth.service";
 
-export function initializeKeycloak(authService: AuthServiceService): () => Promise<void> {
+export function initializeKeycloak(authService: AuthService): () => Promise<void> {
   return async () => {
     try {
       const authenticated = await authService.init();
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: APP_INITIALIZER, //'appConfigInitializer',
       useFactory: initializeKeycloak,
-      deps: [AuthServiceService],
+      deps: [AuthService],
       multi: true // Asegura que la promesa se ejecute antes de arrancar
     }
   ]

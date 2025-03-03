@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,7 +9,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
   styleUrl: './sidenav.component.css'
 })
 export class SidenavComponent implements OnInit{
-  private authService = inject(AuthServiceService);
+  private authService = inject(AuthService);
   mobileQuery: MediaQueryList;
   menuNav = [
     {name:"Home", route:"home", icon:"home"},

@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
   private keycloak: any;
   private isInitialized = false; // Nueva bandera para evitar reinicializaciones
 
