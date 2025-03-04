@@ -116,4 +116,13 @@ export class AuthService {
 
     return false; // Si no hay token o el token ha expirado
   }
+
+  getRoles(){
+    if (!this.keycloak) {
+      console.error('Keycloak service - keycloak no está inicializado.');
+      return [];
+    }
+
+    return this.keycloak?.tokenParsed?.realm_access?.roles || [];
+  }
 }

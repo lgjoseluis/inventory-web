@@ -99,6 +99,10 @@ npm install keycloak-angular keycloak-js
 ng g s modules/shared/services/AuthService
 ng generate guard core/guards/auth
 
+ng g s modules/shared/services/util
+
+ng g m core/directives/directives --flat
+ng g directive core/directives/showInRole
 
 ## Comandos utilizados - Docker
 
