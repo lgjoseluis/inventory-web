@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { appConfig } from './app.config';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { appConfig } from './app.config';
   providers: [
     ...appConfig.providers, // TODO: Lectura del archivo json - config
     provideClientHydration(withEventReplay()),
-    provideAnimationsAsync()    
+    provideAnimationsAsync(),
+    provideCharts(withDefaultRegisterables())    
   ],
   bootstrap: [AppComponent]
 })
