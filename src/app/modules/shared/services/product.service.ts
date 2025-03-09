@@ -40,4 +40,10 @@ export class ProductService {
 
     return this.http.delete(endpoint);
   }
+
+  exportExcel(){
+    const endpoint = `${apiUrl}/v1/products/export/excel`;
+
+    return this.http.get(endpoint, {responseType:'blob'});
+  }
 }

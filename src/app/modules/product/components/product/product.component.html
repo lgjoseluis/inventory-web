@@ -14,10 +14,15 @@
             </div>
             
             <div class="row">
-                <div class="col-md-3 offset-md-9 mb-2">
+                <div class="col-sm-2 offset-sm-9 mb-2">
                     <button mat-raised-button color="primary" (click)="openProductDialog()">
-                        Agregar producto
+                        Agregar product
                     </button>
+                </div>
+                <div class="col-sm-1 mb-2">
+                    <button mat-icon-button aria-label="Export to excel" (click)="exportExcel()" color="primary">
+                        <mat-icon>download</mat-icon>
+                    </button>                
                 </div>
             </div>
         </div>

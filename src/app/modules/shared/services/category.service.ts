@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
+import { blob } from 'stream/consumers';
 
 const apiUrl: String = "http://localhost:8080/api";
 
@@ -44,5 +45,11 @@ export class CategoryService {
     const endpoint = `${apiUrl}/v1/categories/${id}`;
 
     return this.http.get(endpoint);
+  }
+
+  exportExcel(){
+    const endpoint = `${apiUrl}/v1/categories/export/excel`;
+
+    return this.http.get(endpoint, {responseType:'blob'});
   }
 }

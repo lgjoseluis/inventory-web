@@ -96,6 +96,24 @@ export class ProductComponent implements OnInit{
     }
   }
 
+  exportExcel(){
+    this.service.exportExcel().subscribe({
+      next: (data : any) =>{
+        let file = new Blob([data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+        let fileUrl = URL.createObjectURL(file);
+        var anchor = document.createElement("a");
+
+        anchor.download = "products.xlsx";
+        anchor.href = fileUrl;
+
+        anchor.click();
+      },
+      error: (error: any)=>{
+        console.log('Error', "Error al recuperar la categoría");
+      }
+    });
+  }
+
   processResponseProducts(response:any){
       const dataProduct: Product[]=[];
   
