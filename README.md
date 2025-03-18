@@ -127,3 +127,26 @@ docker run -d --name keycloak --network inventory-net -v keycloak_data:/opt/keyc
 ------
 docker exec -it keycloak /opt/keycloak/bin/kc.sh bootstrap-admin user --username:env KEYCLOAK_ADMIN --password:env KEYCLOAK_ADMIN_PASSWORD
 docker exec -it keycloak /opt/keycloak/bin/kc.sh start bootstrap-admin user --username:env KEYCLOAK_ADMIN --password:env KEYCLOAK_ADMIN_PASSWORD
+
+
+## Deploy
+ng build --> genera la carpeta dist/nombre-proyecto
+
+## Despliegue
+SSR (Server-Side Rendering) con Angular Universal
+
+### App.yml
+runtime: nodejs20
+instance_class: F1  # Opcional: Puedes cambiarlo según la carga
+env_variables:
+  NODE_ENV: "production"
+
+handlers:
+  - url: /  
+    static_files: dist/nombre-proyecto/browser/index.html  
+    upload: dist/nombre-proyecto/browser/index.html  
+
+  - url: /(.*)
+    static_files: dist/nombre-proyecto/browser/\1
+    upload: dist/nombre-proyecto/browser/(.*)
+    secure: always
